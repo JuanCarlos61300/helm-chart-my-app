@@ -1,0 +1,31 @@
+#producción versiones fijas
+frontend:
+  image:
+    tag: "1.25.5-alpine"
+  replicaCount: 3
+  service:
+    type: LoadBalancer
+  resources:
+    requests: { cpu: 200m, memory: 128Mi }
+    limits: { cpu: 500m, memory: 256Mi }
+
+backend:
+  image:
+    tag: "31"
+  replicaCount: 3
+  env:
+    LOG_LEVEL: warn
+  resources:
+    requests: { cpu: 250m, memory: 256Mi }
+    limits: { cpu: "1", memory: 512Mi }
+
+database:
+  image:
+    tag: "16.4-alpine"
+  auth:
+    existingSecret: juan-db-credentials
+  persistence:
+    size: 20Gi
+  resources:
+    requests: { cpu: 500m, memory: 1Gi }
+    limits: { cpu: "2", memory: 2Gi }

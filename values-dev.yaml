@@ -1,0 +1,22 @@
+#entorno de desarrollo
+frontend:
+  image:
+    tag: "latest"
+  service:
+    type: NodePort
+    nodePort: 30080
+
+backend:
+  image:
+    tag: "latest"
+  service:
+    type: NodePort
+    nodePort: 30081
+  env:
+    LOG_LEVEL: debug
+
+database:
+  auth:
+    password: "jc-dev-2026"
+  persistence:
+    size: 1Gi

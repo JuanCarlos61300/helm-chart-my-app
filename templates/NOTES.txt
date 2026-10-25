@@ -1,0 +1,8 @@
+¡Listo! my-app se ha desplegado como "{{ .Release.Name }}" en el namespace {{ .Release.Namespace }}.
+
+Para ver cómo va todo:
+  kubectl get pods,svc,pvc -n {{ .Release.Namespace }}
+{{- if and .Values.frontend.enabled (eq .Values.frontend.service.type "NodePort") }}
+
+El frontend está en http://<IP-del-nodo>:{{ .Values.frontend.service.nodePort }}
+{{- end }}

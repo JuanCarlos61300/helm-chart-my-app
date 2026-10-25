@@ -1,0 +1,56 @@
+# Valores por defecto de my-app.
+
+frontend:
+  enabled: true
+  image:
+    repository: nginx
+    tag: "1.25-alpine"
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 80
+    # nodePort: 30080 
+  resources:
+    requests: { cpu: 50m, memory: 64Mi }
+    limits: { cpu: 200m, memory: 128Mi }
+
+backend:
+  enabled: true
+  image:
+    repository: mendhak/http-https-echo
+    tag: "31"
+  replicaCount: 1
+  containerPort: 8080
+  service:
+    type: ClusterIP
+    port: 8080
+  env: {}
+  database:
+    host: ""
+    name: jc_db
+    user: jc_user
+  resources:
+    requests: { cpu: 100m, memory: 128Mi }
+    limits: { cpu: 500m, memory: 256Mi }
+
+database:
+  enabled: true
+  image:
+    repository: postgres
+    tag: "16-alpine"
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 5432
+  auth:
+    database: jc_db
+    username: jc_user
+    password: "jc-changeme"
+    existingSecret: ""
+  persistence:
+    enabled: true
+    size: 1Gi
+    storageClass: ""
+  resources:
+    requests: { cpu: 100m, memory: 256Mi }
+    limits: { cpu: 500m, memory: 512Mi }
